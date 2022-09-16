@@ -23,7 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
           leading: IconButton(
               onPressed: () async {
-                file = await pickImageViaImagePicker();
+                final file = await pickImageByFilePicker();
                 setState(() {
                   
                 });
@@ -34,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 final id = FirebaseAuth.instance.currentUser!.uid;
                 final storageRef =
                     FirebaseStorage.instance.ref().child("user_images").child(id) ;
-                final snap = await storageRef.putFile( File(file!.path)  );
+                final snap = await storageRef.putFile( File(file.path! )  );
 
                 final url = await snap.ref.getDownloadURL();
                                 print(url);

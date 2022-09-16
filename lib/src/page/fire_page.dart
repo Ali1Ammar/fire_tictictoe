@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tictictoeproject1223/src/page/profile_page.dart';
+
 class FireStorePage extends StatefulWidget {
   const FireStorePage({super.key});
 
@@ -15,6 +17,12 @@ class _FireStorePageState extends State<FireStorePage> {
     return Scaffold(
       body: ListView(
         children: [
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
+              },
+              child: Text("profile")),
           ElevatedButton(
               onPressed: () {
                 final id = FirebaseAuth.instance.currentUser!.uid;
