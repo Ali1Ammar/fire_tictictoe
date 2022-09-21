@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tictictoeproject1223/src/helper/route_helper.dart';
 import 'package:tictictoeproject1223/src/page/profile_page.dart';
 
 import 'fire_page.dart';
@@ -25,8 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     if (FirebaseAuth.instance.currentUser != null) {
       Future.microtask(() {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => FireStorePage()));
+            goToPage(context,const ProfilePage());
       });
     }
     super.initState();

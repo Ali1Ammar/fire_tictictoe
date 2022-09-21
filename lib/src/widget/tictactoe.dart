@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:tictictoeproject1223/src/data/board.dart';
 
 class TicTacToe extends StatefulWidget {
   const TicTacToe({super.key});
@@ -9,11 +8,10 @@ class TicTacToe extends StatefulWidget {
   State<TicTacToe> createState() => _TicTacToeState();
 }
 
-enum Player { x, o }
 
 class _TicTacToeState extends State<TicTacToe> {
-  Player current = Player.o;
-  var items = <Player?>[
+  BoardPlayer current = BoardPlayer.o;
+  var items = <BoardPlayer?>[
     null,
     null,
     null,
@@ -24,7 +22,7 @@ class _TicTacToeState extends State<TicTacToe> {
     null,
     null,
   ];
-  Player? winner;
+  BoardPlayer? winner;
   bool endGame = false;
   int counter = 0;
 
@@ -61,11 +59,11 @@ class _TicTacToeState extends State<TicTacToe> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("current player is ${current.name}"),
+                child: Text("current BoardPlayer is ${current.name}"),
               ),
               if (winner != null) Text("the winner is ${winner!.name}"),
               if (endGame && winner == null) const Text("no winner"),
-              Board(
+              BoardWidget(
                 items: items,
                 onClick: (i) {
                   if (endGame) return;
@@ -79,7 +77,7 @@ class _TicTacToeState extends State<TicTacToe> {
                   setState(() {
                     counter++;
                     items[i] = current;
-                    current = current == Player.o ? Player.x : Player.o;
+                    current = current == BoardPlayer.o ? BoardPlayer.x : BoardPlayer.o;
                     handleWinner();
                     if (winner == null && !items.contains(null)) {
                       endGame = true;
@@ -93,10 +91,10 @@ class _TicTacToeState extends State<TicTacToe> {
   }
 }
 
-class Board extends StatelessWidget {
-  final List<Player?> items;
+class BoardWidget extends StatelessWidget {
+  final List<BoardPlayer?> items;
   final void Function(int) onClick;
-  const Board({super.key, required this.items, required this.onClick});
+  const BoardWidget({super.key, required this.items, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +119,7 @@ class Board extends StatelessWidget {
 }
 
 class BoardItem extends StatelessWidget {
-  final Player? item;
+  final BoardPlayer? item;
   const BoardItem({super.key, this.item});
 
   @override
